@@ -108,6 +108,10 @@ public class BLECentralMan  {
                     return Connect2BTDevice("ConnectDevName", new String(data));
                 }
 
+                if(CHID.contentEquals("DisconnectAll"))
+                {
+                    return DisconnectAllBTDevice("ConnectDevName");
+                }
                 if(CHID.contentEquals("ServiceDiscReq"))
                 {
                     return ServiceDiscovery("ServiceDisc");
@@ -258,7 +262,13 @@ public class BLECentralMan  {
     BluetoothGatt mBluetoothGatt=null;
 
 
+    boolean DisconnectAllBTDevice(String CHID)
+    {
+        Connect2BTDeviceEvID =CHID+"Ev";
 
+        stopAllDevices();
+        return BTCCommIF.SendData(CHID+"Rsp","Disconnected".getBytes());
+    }
     boolean Connect2BTDevice(String CHID,String devName)
     {
         Connect2BTDeviceEvID =CHID+"Ev";

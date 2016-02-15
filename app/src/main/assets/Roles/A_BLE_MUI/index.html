@@ -28,8 +28,10 @@
 					<button class="blockS darkColor width3  vbox" ng-init="UIobj.IfShowDetailOP=false" ng-click="UIobj.IfShowDetailOP=!UIobj.IfShowDetailOP" >...</button>
 					
 					<div ng-show="UIobj.IfShowDetailOP">
-						<button class="blockS darkColor width6   vbox"  ng-click="SendDBinMsg2BT('ScanReq',[1,0]);UIobj.scanDevList=[]" >Scan start</button>
+						<button class="blockS darkColor width6   vbox"  ng-click="SendDBinMsg2BT('ScanReq',[1]);UIobj.scanDevList=[]" >Scan start</button>
 						<button class="blockS darkColor width6   vbox"  ng-click="SendDBinMsg2BT('ScanReq',[0])" >Scan stop</button>
+
+						<button class="blockS darkColor   vbox"  ng-click="SendDBinMsg2BT('DisconnectAll',[0])" >Disconnect</button>
 						<button class="blockS width6 lgreen smallFontSize vbox" ng-repeat="scanDev in UIobj.scanDevList" ng-click="SendDMsg2BT('ConnectDevNameReq',scanDev.name)">{{scanDev.name}}</button>
 
 						<div class="blockS darkColor    vbox">
