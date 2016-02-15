@@ -72,24 +72,6 @@ function($scope, $timeout, $http) {
 		//$scope.BTRECVData.push(msg);
 		$scope.BTRECVData=BTRECVDataArr.join("\n");
 
-
-		if($scope.UIobj.toggleLoopTest){
-			if(str.startsWith('b5f90073>>17>>-125<<307')||str.startsWith('b5f90073>>18>>-113<<319')){
-
-				$scope.UIobj.LoopCount++;
-				$timeout(function(){
-				  $scope.SendBinMsg2BT($scope.gpCMD.CMDIDMaster,$scope.gpCMD.GetSetting.GetSetting);
-				},100);
-			}
-			else if(str.startsWith('b5f90073>>17>>-1<<'))
-			{
-				$scope.UIobj.LoopCount++;
-				$timeout(function(){
-					$scope.BTRECVData="";
-				  	$scope.SendBinMsg2BT($scope.gpCMD.CMDIDMaster,$scope.gpCMD.Mode.Video);
-				},100);
-			}
-		}
 	};
 
 	//SendBinMsg2BT($scope.gpCMD.CMDIDMaster,$scope.gpCMD.GetSetting.GetSetting);
@@ -114,7 +96,7 @@ function($scope, $timeout, $http) {
 		JsIF_BLEMaster.SendMsg2BT(JSON.stringify(dataObj));
 	};
 
-	$scope.SendMsg2BT2 = function(CH,msg) {
+	$scope.SendMsg2BT = function(CH,msg) {
 		var chid=parseInt(CH, 16);
 		var base64Data=window.btoa(msg);
 		var dataObj={};

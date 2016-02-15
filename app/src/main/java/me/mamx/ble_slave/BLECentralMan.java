@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -128,6 +129,9 @@ public class BLECentralMan  {
                 BluetoothGattCharacteristic chara=GattCharaMap.get(CH);
 
                 if(chara==null)return false;
+
+                Log.v("WWWW>>", Arrays.toString(data)+"<"+data.length);
+
                 if(!chara.setValue(data))return false;
                 if(!mBluetoothGatt.writeCharacteristic(chara))return false;
                 return true;
@@ -443,28 +447,10 @@ public class BLECentralMan  {
                 {
                     //BTCCommIF.SendData(characteristic,characteristic.getValue());
 
-                    byte[] value=characteristic.getValue();
-                    if(value[0]-Xasdas!=1&&!(value[0]==-128&&(Xasdas==-113||Xasdas==127)))
-                    {
 
-                        OKCount=0;
-                        //Log.v("ERROR.....",value.length+">>"+"   ERROR.....PKG lost::"+value[0]+"  "+Xasdas);
-                        BTCCommIF.SendData(characteristic, ("ERRlost::" + value[0] + "  " + Xasdas).getBytes());
-                    }
-                    else
-                        OKCount++;
-                    Xasdas=value[0];
-                    if(PL%10==0)
-                    {
-                        TMPVArr[0]=(byte)(PL/10);
-                        TMPVArr[1]=(byte)value.length;
-                        //BTCommIF.SendData(characteristic, TMPVArr);
-                        //Log.v("asdasdasd",characteristic.getUuid().toString()+"+CCC::"+TMPVArr[0]);
-                    }PL++;
+                    Log.v(">>>>", Arrays.toString(characteristic.getValue())+"<");
 
-                    String info=characteristic.getValue().length+">>"+value[0]+"<<"+OKCount;
-                    BTCCommIF.SendData(characteristic, info.getBytes());
-                    Log.v("onCharacteristicChanged",info);
+                    BTCCommIF.SendData(characteristic, characteristic.getValue());
                 }
 
             };
