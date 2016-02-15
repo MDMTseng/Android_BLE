@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+	<meta name="viewport" content="width=device-width" />
+	<script src="js/angular.min.js"></script>
+	<script src="js/angular-animate.min.js"></script>
+	<script src="js/prefixfree.min.js"></script>
+	<script src="script.js"></script>
+	<link rel=stylesheet type="text/css" href="style/basis.css">
+</head>
+<body  ng-app="InterBlu">
+
+	
+	
+	<div  ng-controller="MainController" id="MainController" class="height12">
+
+		<div class="blockS darkColor black  vbox"  >MXTer web.</div>
+		
+		
+		
+		
+		<div class="width3 widthF800"  style="float: left;">
+			
+			<div class=" cardblock HFitContent">
+				<div class=" border HFitContent" >
+					<button class="blockS darkColor width9  vbox"  ng-click="" >-AUTO-</button>
+					<button class="blockS darkColor width3  vbox" ng-init="UIobj.IfShowDetailOP=false" ng-click="UIobj.IfShowDetailOP=!UIobj.IfShowDetailOP" >...</button>
+					
+					<div ng-show="UIobj.IfShowDetailOP">
+						<button class="blockS darkColor    vbox"  ng-click="SendDBinMsg2BT('ScanReq',[1,0]);UIobj.scanDevList=[]" >Scan start</button>
+						<button class="blockS darkColor    vbox"  ng-click="SendDBinMsg2BT('ScanReq',[0])" >Scan stop</button>
+						<button class="blockS darkColor   vbox"  ng-click="SendDBinMsg2BT('ScanResultReq',[])" >GetScanResult</button>
+						<button class="blockS darkColor    vbox"  ng-click="SendDMsg2BT('ConnectDevNameReq','GoPro 0978')" >ConnectDev</button>
+
+						<button class="blockS width6 lgreen smallFontSize vbox" ng-repeat="scanDev in UIobj.scanDevList" ng-click="SendDMsg2BT('ConnectDevNameReq',scanDev.name)">{{scanDev.name}}</button>
+
+						<button class="blockS darkColor    vbox"  ng-click="SendDMsg2BT('ServiceDiscReq','')" >Service Disc</button>
+						<button class="blockS darkColor    vbox"  ng-click="SendDMsg2BT('EnableNotiReq','')" >EnableNotiReq</button>
+					</div>
+				</div>
+			</div>
+			
+			<div class=" cardblock HFitContent">
+				<div class=" border HFitContent" >
+					<div class="blockS darkColor   vbox" >Temperature</div>
+
+					<button class="blockS darkColor lgray  width6   vbox"  ng-click="SendBinMsg2BT(CMD.CMDIDMaster,CMD.Temperature.High)" >High</button>
+					<button class="blockS darkColor lgray  width6   vbox"  ng-click="SendBinMsg2BT(CMD.CMDIDMaster,CMD.Temperature.Low)" >Low</button>
+
+				</div>
+			</div>
+
+		</div>
+		
+		
+		<div class="widthF800 borderbox  cardblock HFitContent">
+			<div class=" border borderbox  height12" style="overflow: hidden">
+				<div class="blockS darkColor vbox width8">RECV data</div><input type="search" style="text-align:left;" name="FirstName" class="blockS input width4" ng-model="RECVFilter">
+				<pre class="blockS textarea borderbox HX7"  placeholder="RECV data">{{BTRECVData}}</pre>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
